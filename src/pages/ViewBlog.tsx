@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { setViewBlog, clearViewBlog } from "../features/blogsSlice";
@@ -22,6 +22,15 @@ const ViewBlog = () => {
             dispatch(clearViewBlog());
         };
     }, [blog, dispatch]);
+
+    if (!blog) {
+        return (
+            <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white">
+                <p className="text-xl mb-4">Blog not found.</p>
+                <button onClick={() => navigate("/")} className="text-yellow-500 hover:underline">Go back home</button>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-slate-900 p-6">
