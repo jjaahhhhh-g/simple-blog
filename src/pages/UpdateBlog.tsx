@@ -43,6 +43,12 @@ const UpdateBlog = () => {
     return (
         <div className="min-h-screen bg-slate-900 p-6">
             <div className="max-w-3xl mx-auto bg-slate-800 p-8 rounded-lg shadow-lg">
+                <button 
+                    onClick={() => navigate("/")} 
+                    className="text-slate-400 underline hover:text-yellow-500 font-medium"
+                >
+                    Back to Feed
+                </button>
                 <h2 className="text-3xl font-bold mb-6 text-center text-blue-300">Edit Blog</h2>
                 <input 
                     className="w-full bg-slate-700 text-white text-2xl border border-slate-500 rounded p-3 mb-4 focus:outline-none focus:border-yellow-500"

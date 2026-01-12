@@ -79,13 +79,14 @@ const BlogsList = () => {
                 {blogs.length === 0 ? (
                 <p className="text-slate-500 text-center">No blogs yet. Start creating!</p>
                 ) : (
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <ul className="flex flex-col gap-6">
                     {blogs.map((blog) => (
-                        <li key={blog.id} className="bg-slate-800 p-6 rounded-lg shadow-lg hover:shadow-xl">
+                        <li key={blog.id} className="bg-slate-800 p-6 rounded-lg shadow-lg hover:shadow-xl border border-slate-700">
                             <h3 className="text-yellow-400 text-xl font-semibold mb-2">{blog.title}</h3>
-                            <p className="text-slate-200 mb-4">{blog.content}</p>
+                            <p className="text-slate-200 mb-4 whitespace-pre-wrap">{blog.content}</p>
                             <div className="flex space-x-4">
                                 <Link to={`/update/${blog.id}`} className="text-slate-500 hover:text-yellow-500 font-medium">Edit</Link>
+                                <Link to={`/view/${blog.id}`} className="text-slate-500 hover:text-yellow-500 font-medium">View</Link>
                                 <button onClick={() => handleDelete(blog.id)} className="text-slate-500 hover:text-red-400 font-medium">Delete</button>
                             </div>
                         </li>

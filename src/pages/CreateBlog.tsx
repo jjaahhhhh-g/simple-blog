@@ -39,7 +39,13 @@ const CreateBlog = () => {
     return (
         <div className="min-h-screen bg-slate-900 p-6">
             <div className="max-w-3xl mx-auto bg-slate-800 p-8 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-center text-blue-300">Edit Blog</h2>
+                <button 
+                        onClick={() => navigate("/")} 
+                        className="text-slate-400 hover:text-yellow-500 font-medium md:text-right mb-4 underline"
+                    >
+                        Back to Feed
+                    </button>
+                <h2 className="text-3xl font-bold mb-6 text-center text-blue-300">Write Blog</h2>
                 <input 
                     className="w-full bg-slate-700 text-white text-2xl border border-slate-500 rounded p-3 mb-4 focus:outline-none focus:border-yellow-500"
                     value={title}

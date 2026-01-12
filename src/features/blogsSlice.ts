@@ -11,11 +11,13 @@ interface Blog {
 
 interface BlogsState {
     blogs: Blog[];
+    viewBlog: Blog | null;
     loading: boolean;
 }
 
 const initialState: BlogsState = {
     blogs: [],
+    viewBlog: null,
     loading: false,
 };
 
@@ -26,6 +28,13 @@ const blogsSlice = createSlice({
         setBlogs: (state, action: PayloadAction<Blog[]>) => {
             state.blogs = action.payload;
             state.loading = false;
+        },
+        setViewBlog: (state, action: PayloadAction<Blog | null>) => {
+            state.viewBlog = action.payload;
+            state.loading = false;
+        },
+        clearViewBlog: (state) => {
+            state.viewBlog = null;
         },
         addBlog: (state, action: PayloadAction<Blog>) => { 
             state.blogs.push(action.payload);
@@ -45,5 +54,5 @@ const blogsSlice = createSlice({
     },
 });
 
-export const { setBlogs, addBlog, updateBlog, deleteBlog, setLoading } = blogsSlice.actions;
+export const { setBlogs, setViewBlog, clearViewBlog, addBlog, updateBlog, deleteBlog, setLoading } = blogsSlice.actions;
 export default blogsSlice.reducer;
