@@ -99,12 +99,22 @@ const CreateBlog = () => {
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Write content here..."
                 />
-                <input 
-                    type="file"
-                    accept="image/*"
-                    onChange={ (e) => setImage(e.target.files ? e.target.files[0] : null) }
-                    className="w-full text-center text-yellow-300 border-2 border-dashed border-slate-500 p-4 mb-6 rounded-lg cursor-pointer"
-                />
+                <div className="relative flex items-center gap-2 mb-3">
+                    <input 
+                        type="file" 
+                        accept="image/*" 
+                        id="comment-upload"
+                        onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+                        className="hidden"
+                    />
+                    <label 
+                        htmlFor="comment-upload"
+                        className=" text-slate-400 hover:text-yellow-500 cursor-pointer transition-colors text-sm font-medium bg-slate-800 px-4 py-2 rounded-lg border border-slate-700"
+                    >
+                        {image ? "Change Image" : "Add Image"}
+                    </label>
+                    {(image) && <p className="text-xs text-yellow-500">Image attached: {image.name}</p>}
+                </div>
                 <button 
                     className="w-full bg-yellow-500 hover:bg-yellow-300 text-slate-800 font-semibold py-3 px-4 rounded cursor-pointer disabled:opacity-50"
                     onClick={handleCreate}
