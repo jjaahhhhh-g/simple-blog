@@ -47,7 +47,7 @@ const Login = () => {
                     placeholder="Password"
                 />
                 <button 
-                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-black font-semibold mb-3 py-3 rounded"
+                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-black font-semibold mb-3 py-3 rounded cursor-pointer"
                     onClick={handleLogin}
                 >
                     Login
@@ -56,7 +56,7 @@ const Login = () => {
                     Don't have an account?
                     <Link 
                         to="/register"
-                        className="text-yellow-300 underline hover:text-yellow-500 font-semibold ms-2"
+                        className="text-yellow-300 underline hover:text-yellow-500 font-semibold ms-2 cursor-pointer"
                     >
                         Register
                     </Link>

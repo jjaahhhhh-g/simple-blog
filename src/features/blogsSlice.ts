@@ -7,6 +7,7 @@ interface Blog {
     content: string;
     user_id: string;
     created_at: string;
+    image_url: string;
 }
 
 interface BlogsState {

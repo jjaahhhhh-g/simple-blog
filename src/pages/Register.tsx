@@ -45,17 +45,20 @@ const Register = () => {
                     placeholder="Password"
                 />
                 <button 
-                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-black font-semibold mb-3 py-3 rounded"
+                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-black font-semibold mb-3 py-3 rounded cursor-pointer"
                     onClick={handleRegister}
                 >
                     Register
                 </button>
-                <Link 
-                    to="/login"
-                    className="block w-full text-center text-yellow-300 underline hover:text-yellow-500 font-semibold mb-3"
-                >
-                    Back to Login
-                </Link>
+                <div className="block w-full text-center mb-3">
+                    Have an existing account?
+                    <Link 
+                        to="/login"
+                        className="text-yellow-300 underline hover:text-yellow-500 font-semibold ms-2 cursor-pointer"
+                    >
+                        Back to Login
+                    </Link>
+                </div>
             </div>
         </div>
     );

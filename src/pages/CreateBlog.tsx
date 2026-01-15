@@ -8,19 +8,60 @@ import type { RootState } from "../store";
 const CreateBlog = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [image, setImage] = useState<File | null>(null);
+    const [uploading, setUploading] = useState(false);
     const user = useSelector((state: RootState) => state.auth.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const uploadImage = async (file: File) => { 
+        setUploading(true);
+        try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${user.id}/${Math.random()}.${fileExt}`;
+            
+            const { error } = await supabase.storage
+                .from('images-blog')
+                .upload(fileName, file);
+
+            if (error) {
+                console.log("Error uploading image:", error);
+                return null;
+            }
+
+            const { data } = supabase.storage
+                .from('images-blog')
+                .getPublicUrl(fileName);
+
+            return data.publicUrl;
+            
+        } catch (error) {
+            console.error("Upload error:", error);
+            return null;
+        } finally {
+            setUploading(false);
+        }
+    }
 
     const handleCreate = async () => {
         if (!user) {
             return;
         }
+
+        let imageUrl = null;
+
+        if (image) {
+            imageUrl = await uploadImage(image);
+            if (!imageUrl) {
+                return;
+            }
+        }
+
         try {
             const { data, error } = await supabase
                 .from('blogs')
                 .insert([
-                    { title, content, user_id: user.id }
+                    { title, content, user_id: user.id, image_url: imageUrl }
                 ])
                 .select();
             if (error) {
@@ -58,11 +99,18 @@ const CreateBlog = () => {
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Write content here..."
                 />
+                <input 
+                    type="file"
+                    accept="image/*"
+                    onChange={ (e) => setImage(e.target.files ? e.target.files[0] : null) }
+                    className="w-full text-center text-yellow-300 border-2 border-dashed border-slate-500 p-4 mb-6 rounded-lg cursor-pointer"
+                />
                 <button 
-                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-slate-800 font-semibold py-3 px-4 rounded"
+                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-slate-800 font-semibold py-3 px-4 rounded cursor-pointer disabled:opacity-50"
                     onClick={handleCreate}
+                    disabled={uploading}
                 >
-                    Create
+                    {uploading ? "Uploading..." : "Create Blog"}
                 </button>
             </div>
         </div>

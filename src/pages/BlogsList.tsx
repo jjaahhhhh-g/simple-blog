@@ -82,12 +82,22 @@ const BlogsList = () => {
                 <ul className="flex flex-col gap-6">
                     {blogs.map((blog) => (
                         <li key={blog.id} className="bg-slate-800 p-6 rounded-lg shadow-lg hover:shadow-xl border border-slate-700">
+                            {blog.image_url && (
+                                    <div className="w-full h-48 overflow-hidden rounded mb-4 bg-slate-700">
+                                            <img 
+                                                src={blog.image_url} 
+                                                alt={blog.title} 
+                                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" 
+                                            />
+                                        </div>
+                                )
+                            }
                             <h3 className="text-yellow-400 text-xl font-semibold mb-2">{blog.title}</h3>
                             <p className="text-slate-200 mb-4 whitespace-pre-wrap">{blog.content}</p>
                             <div className="flex space-x-4">
-                                <Link to={`/update/${blog.id}`} className="text-slate-500 hover:text-yellow-500 font-medium">Edit</Link>
-                                <Link to={`/view/${blog.id}`} className="text-slate-500 hover:text-yellow-500 font-medium">View</Link>
-                                <button onClick={() => handleDelete(blog.id)} className="text-slate-500 hover:text-red-400 font-medium">Delete</button>
+                                <Link to={`/update/${blog.id}`} className="text-slate-500 hover:text-yellow-500 font-medium cursor-pointer">Edit</Link>
+                                <Link to={`/view/${blog.id}`} className="text-slate-500 hover:text-yellow-500 font-medium cursor-pointer">View</Link>
+                                <button onClick={() => handleDelete(blog.id)} className="text-slate-500 hover:text-red-400 font-medium cursor-pointer">Delete</button>
                             </div>
                         </li>
                     ))}
@@ -97,13 +107,13 @@ const BlogsList = () => {
                     <button 
                         onClick={() => setPage((p) => Math.max(1, p-1))}
                         disabled={page === 1}
-                        className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded disabled:opacity-50"
+                        className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded cursor-pointer disabled:opacity-50"
                     >
                         Previous
                     </button>
                     <button 
                         onClick={() => setPage((p) => p + 1)}
-                        className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded"
+                        className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded cursor-pointer"
                     >
                         Next
                     </button>
