@@ -116,24 +116,36 @@ const UpdateBlog = () => {
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Write content here..."
                 />
-                <div className="relative flex items-center gap-2 mb-3">
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        id="comment-upload"
-                        onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
-                        className="hidden"
-                    />
-                    <label 
-                        htmlFor="comment-upload"
-                        className=" text-slate-400 hover:text-yellow-500 cursor-pointer transition-colors text-sm font-medium bg-slate-800 px-4 py-2 rounded-lg border border-slate-700"
-                    >
-                        {image ? "Change Image" : "Add Image"}
-                    </label>
-                    {(image || existingImageUrl) && <p className="text-xs text-yellow-500">Image attached: {existingImageUrl?.split('/').pop()}</p>}
-                </div>
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    id="comment-upload"
+                    onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+                    className="hidden"
+                />
+                <label 
+                    htmlFor="comment-upload"
+                    className=" text-slate-400 hover:text-yellow-500 cursor-pointer text-sm font-medium bg-slate-800 px-4 py-2 rounded-lg border border-slate-700"
+                >
+                    {image ? "Change Image" : "Add Image"}
+                </label>
+                {(image || existingImageUrl) && (
+                    <div className="flex items-center gap-3 mt-2">
+                        <p className="text-xs text-yellow-500 italic">
+                            Image Attached: {image ? image.name : existingImageUrl?.split('/').pop()}
+                        </p>
+
+                        <button 
+                            type="button"
+                            onClick={() => { setImage(null); setExistingImageUrl(null); }}
+                            className="text-red-400 hover:text-red-300 text-[10px] font-black uppercase tracking-tighter bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20 cursor-pointer"
+                        >
+                            Remove
+                        </button>
+                    </div>
+                )}
                 <button 
-                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-slate-800 font-semibold py-3 px-4 rounded cursor-pointer disabled:opacity-50"
+                    className="w-full bg-yellow-500 hover:bg-yellow-300 text-slate-800 font-semibold py-3 px-4 rounded cursor-pointer disabled:opacity-50 mt-3"
                     onClick={handleUpdate}
                     disabled={uploading}
                 >
